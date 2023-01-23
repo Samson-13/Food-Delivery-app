@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -18,8 +20,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController textController = TextEditingController();
   List<RestaurantModel> restaurant = [];
 
-  final todosRef = FirebaseFirestore.instance
-      .collection("todos")
+  final restaurantRef = FirebaseFirestore.instance
+      .collection("restaurant")
       .limit(30)
       .withConverter<RestaurantModel>(
     fromFirestore: (data, snap) {
@@ -29,6 +31,46 @@ class _HomePageState extends State<HomePage> {
       return data.toMap();
     },
   );
+
+  void listenData() async {
+    restaurantRef.snapshots().listen((event) {
+      restaurant.clear();
+      for (var element in event.docs) {
+        restaurant.add(element.data());
+      }
+      setState(() {});
+    });
+    // log("firestoreResult: ${firestoreResult.docs.length}");
+  }
+
+  void readData() async {
+    final firestoreResult = await restaurantRef.get();
+    log("firestoreResult: ${firestoreResult.docs.length}");
+    for (var element in firestoreResult.docs) {
+      restaurant.add(element.data());
+    }
+    setState(() {});
+    // final result = await box.read("todos");
+    // if (result != null) {
+    //   List data = result;
+    //   for (var element in data) {
+    //     Map<String, dynamic> js = element;
+    //     TodoModel model = TodoModel.fromMap(js);
+    //     todos.add(model);
+    //   }
+    //   setState(() {});
+    // }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // readData();
+    listenData();
+    //page a in create thar veleh a in call a, page in refresh pangai ah a in call nawn lo
+    // tah hian initial data fetch nan hman ani thin
+  }
+
  
 
   @override
@@ -47,60 +89,59 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           elevation: 3,
         ),
-        body: Center(
-            child: Container(
+        body: Container(
           margin: const EdgeInsets.all(7),
           child: Column(
-            children: [
-              const SizedBox(
-                height: 13,
-              ),
-              _buildSearchbarAnimation(),
-              const SizedBox(
-                height: 13,
-              ),
-              const Divider(
-                height: 12,
-                thickness: 2,
-              ),
-              Row(
-                children: <Widget>[
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Momos corner',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Text('Snacks, Chinese, Biryani'),
-                      Text('Aizawl - 3.0 K.M')
-                    ],
+        children: [
+          const SizedBox(
+            height: 13,
+          ),
+          _buildSearchbarAnimation(),
+          const SizedBox(
+            height: 13,
+          ),
+          const Divider(
+            height: 12,
+            thickness: 2,
+          ),
+          Row(
+            children: <Widget>[
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Momos corner',
+                    style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 94.3),
-                      child: Image.asset(
-                        'assets/images/one.jpg',
-                        height: 100,
-                        scale: 2.5,
-                      ),
-                    ),
-                  )
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  Text('Snacks, Chinese, Biryani'),
+                  Text('Aizawl - 3.0 K.M')
                 ],
               ),
-              const Divider(
-                height: 12,
-                thickness: 2,
-              ),
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 94.3),
+                  child: Image.asset(
+                    'assets/images/one.jpg',
+                    height: 100,
+                    scale: 2.5,
+                  ),
+                ),
+              )
             ],
           ),
-        )));
+          const Divider(
+            height: 12,
+            thickness: 2,
+          ),
+        ],
+          ),
+        ));
   }
 }
 
