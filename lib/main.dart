@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:receipies/ui/homePage.dart';
@@ -28,7 +29,7 @@ class _MainState extends State<Main> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    TimerPage(),
+    CategoryPage(),
     SettingsPage(),
   ];
 
@@ -68,7 +69,7 @@ class _MainState extends State<Main> {
                   text: 'Home',
                 ),
                 GButton(
-                  icon: Icons.timer,
+                  icon: Icons.category,
                   text: 'Timer',
                 ),
                 GButton(

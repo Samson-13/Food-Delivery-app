@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:receipies/models/restaurant.dart';
 import 'package:receipies/ui/settingsPage.dart';
 import 'package:receipies/ui/timerPage.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,16 +16,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController textController = TextEditingController();
+  List<RestaurantModel> restaurant = [];
 
-  // Bottom Navbar
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    TimerPage(),
-    SettingsPage(),
-  ];
+  final todosRef = FirebaseFirestore.instance
+      .collection("todos")
+      .limit(30)
+      .withConverter<RestaurantModel>(
+    fromFirestore: (data, snap) {
+      return RestaurantModel.fromMap(data.data()!);
+    },
+    toFirestore: (data, snap) {
+      return data.toMap();
+    },
+  );
+ 
 
   @override
   Widget build(BuildContext context) {
