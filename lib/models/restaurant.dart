@@ -1,7 +1,7 @@
 class RestaurantModel {
   late String restaurantId;
   late String restaurantName;
-  String? restaurantDescription;
+  late String restaurantDescription;
   String? ownerId;
   String? restauranImage;
   String? ownerEmail;
@@ -25,7 +25,7 @@ class RestaurantModel {
 
   Map<String, dynamic> toMap() {
     return {
-      "restaurantId":restaurantId,
+      "restaurantId": restaurantId,
       "restaurantName": restaurantName,
       "restaurantDescription": restaurantDescription,
       "restauranImage": restauranImage,

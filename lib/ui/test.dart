@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,14 @@ import 'package:receipies/models/restaurant.dart';
 import 'package:receipies/ui/settingsPage.dart';
 import 'package:receipies/ui/timerPage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class TestPage extends StatefulWidget {
+  const TestPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<TestPage> createState() => _TestPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TestPageState extends State<TestPage> {
   TextEditingController textController = TextEditingController();
   List<RestaurantModel> restaurant = [];
 
@@ -87,72 +88,43 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           elevation: 3,
         ),
-        body: Container(
-          margin: const EdgeInsets.all(7),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 13,
-              ),
-              _buildSearchbarAnimation(),
-              const SizedBox(
-                height: 13,
-              ),
-              const Divider(
-                height: 12,
-                thickness: 2,
-              ),
-              Row(
-                children: <Widget>[
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Momos corner',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Text('Snacks, Chinese, Biryani'),
-                      Text('Aizawl - 3.0 K.M')
-                    ],
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 94.3),
-                      child: Image.asset(
-                        'assets/images/restaurant1.jpg',
-                        height: 100,
-                        scale: 1.5,
-                      ),
+        body: ListView.builder(
+            itemCount: restaurant.length,
+            itemBuilder: (context, index) {
+              var item = restaurant[index];
+              return Card(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                  child: Row(children: <Widget>[
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.restaurantName,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Text(item.restaurantDescription),
+                        Text("3.0 K.M")
+                      ],
                     ),
-                  )
-                ],
-              ),
-              const Divider(
-                height: 12,
-                thickness: 2,
-              ),
-            ],
-          ),
-        ));
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Image.network(
+                          item.restauranImage!,
+                          width: 200,
+                          height: 100,
+                        ),
+                      ],
+                    )
+                  ]),
+                ),
+              );
+            }));
   }
-}
-
-Widget _buildSearchbarAnimation() {
-  return SafeArea(
-      child: TextField(
-    decoration: InputDecoration(
-        hintText: 'Search for item...',
-        suffixIcon: const Icon(Icons.search),
-        filled: true,
-        fillColor: Color.fromARGB(204, 230, 233, 233),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide.none)),
-  ));
 }

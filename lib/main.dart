@@ -1,14 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:receipies/ui/homePage.dart';
 import 'package:receipies/ui/searchPage.dart';
 import 'package:receipies/ui/settingsPage.dart';
+import 'package:receipies/ui/test.dart';
 import 'package:receipies/ui/timerPage.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MaterialApp(
-    home: Main(),
+    home: TestPage(),
     debugShowCheckedModeBanner: false,
   ));
 }
