@@ -92,39 +92,51 @@ class _TestPageState extends State<TestPage> {
             itemCount: restaurant.length,
             itemBuilder: (context, index) {
               var item = restaurant[index];
-              return Card(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                  child: Row(children: <Widget>[
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.restaurantName,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+              return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    child: Row(
+                      
+                      children: <Widget>[
+                        
+                        Expanded(
+                          
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,                      
+                            children: [
+                              
+                              
+                              Text(item.restaurantName, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),maxLines: 1, overflow: TextOverflow.ellipsis,),
+
+                              Text(item.restaurantDescription, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                              Text(item.restaurantPhone),
+                              
+                        
+                            ],
+                            
+                          ),
                         ),
-                        Text(item.restaurantDescription),
-                        Text("3.0 K.M")
+                       
+                        Row(
+                         
+                          children: [
+                            
+                            
+                            Image.network(
+                              item.restauranImage,
+                              scale: 1.5,
+                              width: 150,
+                              height: 100,
+                            ),
+                            
+                      ],
+                        ),
+                        
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Image.network(
-                          item.restauranImage!,
-                          width: 200,
-                          height: 100,
-                        ),
-                      ],
-                    )
-                  ]),
-                ),
-              );
+                    
+                    );
             }));
   }
 }
