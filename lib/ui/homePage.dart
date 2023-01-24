@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -87,72 +88,55 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           elevation: 3,
         ),
-        body: Container(
-          margin: const EdgeInsets.all(7),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 13,
-              ),
-              _buildSearchbarAnimation(),
-              const SizedBox(
-                height: 13,
-              ),
-              const Divider(
-                height: 12,
-                thickness: 2,
-              ),
-              Row(
-                children: <Widget>[
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Momos corner',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Text('Snacks, Chinese, Biryani'),
-                      Text('Aizawl - 3.0 K.M')
-                    ],
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 94.3),
-                      child: Image.asset(
-                        'assets/images/restaurant1.jpg',
-                        height: 100,
-                        scale: 1.5,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const Divider(
-                height: 12,
-                thickness: 2,
-              ),
-            ],
-          ),
-        ));
-  }
-}
+        body: ListView.builder(
+            itemCount: restaurant.length,
+            itemBuilder: (context, index) {
+              var item = restaurant[index];
+              return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    child: Row(
+                      
+                      children: <Widget>[
+                        
+                        Expanded(
+                          
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,                      
+                            children: [
+                              
+                              
+                              Text(item.restaurantName, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),maxLines: 1, overflow: TextOverflow.ellipsis,),
 
-Widget _buildSearchbarAnimation() {
-  return SafeArea(
-      child: TextField(
-    decoration: InputDecoration(
-        hintText: 'Search for item...',
-        suffixIcon: const Icon(Icons.search),
-        filled: true,
-        fillColor: Color.fromARGB(204, 230, 233, 233),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide.none)),
-  ));
+                              Text(item.restaurantDescription, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                              Text(item.restaurantPhone),
+                              
+                        
+                            ],
+                            
+                          ),
+                        ),
+                       
+                        Row(
+                         
+                          children: [
+                            
+                            
+                            Image.network(
+                              item.restauranImage,
+                              scale: 1.5,
+                              width: 150,
+                              height: 100,
+                            ),
+                            
+                      ],
+                        ),
+                        
+                      ],
+                    ),
+                    
+                    );
+            }));
+  }
 }
