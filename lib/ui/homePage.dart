@@ -7,8 +7,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:receipies/models/restaurant.dart';
+import 'package:receipies/ui/restaurantPage.dart';
 import 'package:receipies/ui/settingsPage.dart';
-import 'package:receipies/ui/timerPage.dart';
+import 'package:receipies/ui/categoryPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -92,51 +93,57 @@ class _HomePageState extends State<HomePage> {
             itemCount: restaurant.length,
             itemBuilder: (context, index) {
               var item = restaurant[index];
-              return Container(
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RestaurantPage()),
+                  );
+                },
+                child: Card(
+                  elevation: 3,
+                  child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     child: Row(
-                      
                       children: <Widget>[
-                        
                         Expanded(
-                          
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,                      
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              
-                              
-                              Text(item.restaurantName, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),maxLines: 1, overflow: TextOverflow.ellipsis,),
-
-                              Text(item.restaurantDescription, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                              Text(
+                                item.restaurantName,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                item.restaurantDescription,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                               Text(item.restaurantPhone),
-                              
-                        
                             ],
-                            
                           ),
                         ),
-                       
                         Row(
-                         
                           children: [
-                            
-                            
                             Image.network(
                               item.restauranImage,
                               scale: 1.5,
                               width: 150,
                               height: 100,
                             ),
-                            
-                      ],
+                          ],
                         ),
-                        
                       ],
                     ),
-                    
-                    );
+                  ),
+                ),
+              );
             }));
   }
 }

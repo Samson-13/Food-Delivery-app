@@ -6,7 +6,7 @@ import 'package:receipies/ui/homePage.dart';
 import 'package:receipies/ui/searchPage.dart';
 import 'package:receipies/ui/settingsPage.dart';
 import 'package:receipies/ui/test.dart';
-import 'package:receipies/ui/timerPage.dart';
+import 'package:receipies/ui/categoryPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +74,7 @@ class _MainState extends State<Main> {
                 ),
                 GButton(
                   icon: Icons.category,
-                  text: 'Timer',
+                  text: 'Category',
                 ),
                 GButton(
                   icon: Icons.settings,
