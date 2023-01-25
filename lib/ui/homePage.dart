@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController textController = TextEditingController();
+  
   List<RestaurantModel> restaurant = [];
 
   final restaurantRef = FirebaseFirestore.instance
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const RestaurantPage()),
+                        builder: (context) =>  RestaurantPage(restaurantInfo: item,)),
                   );
                 },
                 child: Card(

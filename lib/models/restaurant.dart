@@ -6,6 +6,7 @@ class RestaurantModel {
   late String  restauranImage;
   late String  ownerEmail;
   late String  restaurantPhone;
+  late String  restaurantDetails;
   RestaurantModel({
     required this.restaurantId,
     required this.restaurantName,
@@ -14,6 +15,7 @@ class RestaurantModel {
     required this.ownerId,
     required this.ownerEmail,
     required this.restaurantPhone,
+    required this.restaurantDetails,
   });
 
   RestaurantModel.fromMap(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class RestaurantModel {
     ownerId = json['ownerId'];
     ownerEmail = json['ownerEmail'];
     restaurantPhone = json['restaurantPhone'];
+    restaurantDetails = json['restaurantDetails'];
   }
 
   Map<String, dynamic> toMap() {
@@ -35,6 +38,7 @@ class RestaurantModel {
       "ownerId": ownerId,
       "ownerEmail": ownerEmail,
       "restaurantPhone": restaurantPhone,
+      "restaurantDetails": restaurantDetails,
     };
   }
 }
