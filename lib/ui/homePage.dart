@@ -19,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController textController = TextEditingController();
   List<RestaurantModel> restaurant = [];
 
   final restaurantRef = FirebaseFirestore.instance
