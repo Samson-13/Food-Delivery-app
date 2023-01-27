@@ -76,10 +76,10 @@ class _MainState extends State<Main> {
                   icon: Icons.category,
                   text: 'Category',
                 ),
-                GButton(
-                  icon: Icons.settings,
-                  text: 'Settings',
-                ),
+                // GButton(
+                //   icon: Icons.settings,
+                //   text: 'Settings',
+                // ),
               ],
               selectedIndex: _selectedIndex,
               onTabChange: (index) {

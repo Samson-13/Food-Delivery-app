@@ -98,7 +98,9 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const RestaurantPage()),
+                        builder: (context) => RestaurantPage(
+                              restaurantInfo: item,
+                            )),
                   );
                 },
                 child: Card(
@@ -126,16 +128,24 @@ class _HomePageState extends State<HomePage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(item.restaurantPhone),
+                              const SizedBox(
+                                height: 3,
+                              ),
+                              Text(item.restaurantLocation),
                             ],
                           ),
                         ),
                         Row(
                           children: [
-                            Image.network(
-                              item.restauranImage,
-                              scale: 1.5,
-                              width: 150,
-                              height: 100,
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(18)),
+                              child: Image.network(
+                                item.restauranImage,
+                                scale: 1.5,
+                                width: 150,
+                                height: 100,
+                              ),
                             ),
                           ],
                         ),
