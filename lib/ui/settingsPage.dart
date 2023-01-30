@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:receipies/main.dart';
-import 'package:receipies/ui/aboutPage.dart';
-import 'package:receipies/ui/feedbackPage.dart';
+import 'package:receipies/ui/home_about/aboutPage.dart';
+import 'package:receipies/ui/home_feedback/feedbackPage.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

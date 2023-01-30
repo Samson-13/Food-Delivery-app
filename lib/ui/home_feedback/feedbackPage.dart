@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:receipies/main.dart';
 
-import 'homePage.dart';
+import '../home_main/homePage.dart';
 
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});

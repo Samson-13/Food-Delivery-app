@@ -9,16 +9,18 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:receipies/models/restaurant.dart';
 import 'package:receipies/ui/restaurantPage.dart';
 import 'package:receipies/ui/settingsPage.dart';
-import 'package:receipies/ui/categoryPage.dart';
+import 'package:receipies/ui/home_category/categoryPage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+import 'home_main/homePage.dart';
+
+class HomeRoot extends StatefulWidget {
+  const HomeRoot({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeRoot> createState() => _HomeRootState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeRootState extends State<HomeRoot> {
   List<RestaurantModel> restaurant = [];
 
   final restaurantRef = FirebaseFirestore.instance
@@ -70,7 +72,8 @@ class _HomePageState extends State<HomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     CategoryPage(),
-    SettingsPage(),
+
+
   ];
 
   @override
@@ -85,85 +88,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 70,
-        title: const Text(
-          ' Home',
-          style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 3,
-      ),
-      body: ListView.builder(
-          itemCount: restaurant.length,
-          itemBuilder: (context, index) {
-            var item = restaurant[index];
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RestaurantPage(
-                            restaurantInfo: item,
-                          )),
-                );
-              },
-              child: Card(
-                elevation: 3,
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.restaurantName,
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              item.restaurantDescription,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(item.restaurantPhone),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(item.restaurantLocation),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(18)),
-                            child: Image.network(
-                              item.restauranImage,
-                              scale: 1.5,
-                              width: 150,
-                              height: 100,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -214,3 +139,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+

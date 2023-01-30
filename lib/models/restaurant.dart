@@ -3,7 +3,7 @@ class RestaurantModel {
   late String restaurantName;
   late String restaurantDescription;
   late String ownerId;
-  late String restauranImage;
+  String? restauranImage;
   late String ownerEmail;
   late String restaurantPhone;
   late String restaurantDetails;
