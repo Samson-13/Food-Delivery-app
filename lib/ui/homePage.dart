@@ -63,6 +63,16 @@ class _HomePageState extends State<HomePage> {
     // }
   }
 
+  // Bottom Navbar
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+  static const List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    CategoryPage(),
+    SettingsPage(),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -75,84 +85,132 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 70,
-          title: const Text(
-            ' Home',
-            style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 3,
+      appBar: AppBar(
+        toolbarHeight: 70,
+        title: const Text(
+          ' Home',
+          style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w500,
+              color: Colors.black87),
         ),
-        body: ListView.builder(
-            itemCount: restaurant.length,
-            itemBuilder: (context, index) {
-              var item = restaurant[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RestaurantPage(
-                              restaurantInfo: item,
-                            )),
-                  );
-                },
-                child: Card(
-                  elevation: 3,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.restaurantName,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                item.restaurantDescription,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(item.restaurantPhone),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(item.restaurantLocation),
-                            ],
-                          ),
-                        ),
-                        Row(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 3,
+      ),
+      body: ListView.builder(
+          itemCount: restaurant.length,
+          itemBuilder: (context, index) {
+            var item = restaurant[index];
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RestaurantPage(
+                            restaurantInfo: item,
+                          )),
+                );
+              },
+              child: Card(
+                elevation: 3,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18)),
-                              child: Image.network(
-                                item.restauranImage,
-                                scale: 1.5,
-                                width: 150,
-                                height: 100,
-                              ),
+                            Text(
+                              item.restaurantName,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
+                            Text(
+                              item.restaurantDescription,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(item.restaurantPhone),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(item.restaurantLocation),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18)),
+                            child: Image.network(
+                              item.restauranImage,
+                              scale: 1.5,
+                              width: 150,
+                              height: 100,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              );
-            }));
+              ),
+            );
+          }),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              color: Colors.black.withOpacity(.1),
+            )
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              rippleColor: Colors.grey[300]!,
+              hoverColor: Colors.grey[100]!,
+              gap: 8,
+              activeColor: Colors.black,
+              iconSize: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: Colors.black,
+              tabs: const [
+                GButton(
+                  icon: Icons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: Icons.category,
+                  text: 'Category',
+                ),
+                // GButton(
+                //   icon: Icons.settings,
+                //   text: 'Settings',
+                // ),
+              ],
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

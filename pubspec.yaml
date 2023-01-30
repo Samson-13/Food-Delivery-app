@@ -41,6 +41,8 @@ dependencies:
   firebase_storage: ^11.0.10
   firebase_core: ^2.4.1
   carousel_slider: ^4.2.1
+  firebase_ui_auth: ^1.1.9
+  firebase_auth: ^4.2.5
 
 dev_dependencies:
   flutter_test:
